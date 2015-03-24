@@ -75,8 +75,8 @@ public class ReadPdf {
             PDField field = (PDField) fieldsIter.next();
             Statements = processField(field, "", field.getPartialName());
             String[] Array = Statements.split(",");
-            System.out.println(Arrays.toString(Array));
-            //AssocArray.put(Array[0],Array[1]);
+            //System.out.println(Arrays.toString(Array));
+            AssocArray.put(Array[0],Array[1]);
         }
 
         return AssocArray;
@@ -152,7 +152,9 @@ public class ReadPdf {
             }
             outputString.append("," + "'" + fieldValue + "'");
             //outputString.append(",  type=" + field.getClass().getName());
-            System.out.println(outputString + " " + nested);
+            if(DEBUGG) {
+                System.out.println(outputString + " " + nested);
+            }
         }
         if(String.valueOf(outputString).compareToIgnoreCase("null") == 0)
             return String.valueOf(nested);
