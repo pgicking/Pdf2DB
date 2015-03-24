@@ -6,14 +6,14 @@ package Pdf2DB;
 
 
 import com.sun.tools.javac.jvm.ClassFile;
+import com.sun.tools.javac.util.ArrayUtils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,7 +69,12 @@ public class SQLHandler {
         String key = null;
         String value = null;
 
-        for(Map.Entry<String,String> entry : map.entrySet()){
+        ListIterator<Map.Entry<Integer, String>> iter =
+                new ArrayList(map.entrySet()).listIterator(map.size());
+
+        while (iter.hasPrevious()) {
+            Map.Entry<Integer, String> entry = iter.previous();
+            //System.out.println(entry.getKey() + ":" + entry.getValue());
             key += "," + entry.getKey();
             value += "," + entry.getValue();
         }
@@ -78,6 +83,18 @@ public class SQLHandler {
 
         System.out.println(query);
 
+
+    }
+
+    public static void ReverseMap(Set<Map.Entry<String, String>> entries){
+        Object[] array = entries.toArray();
+
+        System.out.println(Arrays.toString(array));
+
+        Collections.reverse(Arrays.asList(array));
+        System.out.println(Arrays.toString(array));
+
+        entries.clear();
 
     }
 }
