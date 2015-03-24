@@ -86,15 +86,4 @@ public class SQLHandler {
 
     }
 
-    public static void ReverseMap(Set<Map.Entry<String, String>> entries){
-        Object[] array = entries.toArray();
-
-        System.out.println(Arrays.toString(array));
-
-        Collections.reverse(Arrays.asList(array));
-        System.out.println(Arrays.toString(array));
-
-        entries.clear();
-
-    }
 }
