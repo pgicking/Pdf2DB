@@ -9,6 +9,8 @@ import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,7 +22,13 @@ class PDFReader{
         PDFParser parser = null;
         COSDocument cosDoc = null;
         PDFTextStripper pdfStripper;
-        String fileName = "/Users/pgicking/Documents/JavaProjects/Pdf2DB/TestPdfs/Test1.pdf";
+        String fileName = "/Users/pgicking/Documents/JavaProjects/Pdf2DB/TestPdfs/Test2.pdf";
+        final JFileChooser fc = new JFileChooser();
+
+
+//        Component aComponent = null;
+//        int returnVal = fc.showOpenDialog(aComponent);
+
         File file = new File(fileName);
         try {
             parser = new PDFParser(new FileInputStream(file));
