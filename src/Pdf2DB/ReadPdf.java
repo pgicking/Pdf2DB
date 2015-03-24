@@ -75,7 +75,8 @@ public class ReadPdf {
             PDField field = (PDField) fieldsIter.next();
             Statements = processField(field, "", field.getPartialName());
             String[] Array = Statements.split(",");
-            AssocArray.put(Array[0],Array[1]);
+            System.out.println(Arrays.toString(Array));
+            //AssocArray.put(Array[0],Array[1]);
         }
 
         return AssocArray;
@@ -86,6 +87,7 @@ public class ReadPdf {
     {
         List kids = field.getKids();
         String partialName = field.getPartialName();
+        String nested = "";
 
         if(DEBUGG){
             sLevel = "|--";
@@ -102,14 +104,14 @@ public class ReadPdf {
                     sParent = sParent + "." + partialName;
                 }
             }
-            System.out.println(sLevel + sParent);
+            //System.out.println(sLevel + sParent);
             while (kidsIter.hasNext())
             {
                 Object pdfObj = kidsIter.next();
                 if (pdfObj instanceof PDField)
                 {
                     PDField kid = (PDField) pdfObj;
-                    processField(kid, "|  " + sLevel, sParent);
+                    nested = processField(kid, "  " + sLevel, sParent);
                 }
             }
         }
@@ -125,7 +127,17 @@ public class ReadPdf {
             {
                 if (field.getValue() != null)
                 {
+
                     fieldValue = field.getValue();
+
+                }
+                else if(field instanceof PDCheckbox){
+                    if(((PDCheckbox) field).isChecked()){
+                        fieldValue = "True";
+                    }
+                    else{
+                        fieldValue = "False";
+                    }
                 }
                 else
                 {
@@ -140,9 +152,12 @@ public class ReadPdf {
             }
             outputString.append("," + "'" + fieldValue + "'");
             //outputString.append(",  type=" + field.getClass().getName());
-            //System.out.println(outputString);
+            System.out.println(outputString + " " + nested);
         }
-        return String.valueOf(outputString);
+        if(String.valueOf(outputString).compareToIgnoreCase("null") == 0)
+            return String.valueOf(nested);
+        else
+            return String.valueOf(outputString);
     }
 
     public static String Sanitize(String sParent){

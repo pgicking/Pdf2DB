@@ -20,7 +20,7 @@ class PDFReader{
         PDFParser parser = null;
         COSDocument cosDoc = null;
         PDFTextStripper pdfStripper;
-        String fileName = "/Users/pgicking/Documents/JavaProjects/Pdf2DB/TestPdfs/Test2.pdf";
+        String fileName = "/Users/pgicking/Documents/JavaProjects/Pdf2DB/TestPdfs/Test1.pdf";
         File file = new File(fileName);
         try {
             parser = new PDFParser(new FileInputStream(file));
@@ -32,7 +32,6 @@ class PDFReader{
             e.printStackTrace();
         }
 
-        ReadPdf.ExtractPDF();
         try {
             SQLHandler.GenerateSQLStatements(new ReadPdf().printFields(pdDoc));
         } catch (IOException e) {
